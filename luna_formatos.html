@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Luna GI">
+<meta name="theme-color" content="#134289">
+<title>Formatos de Campo – Luna GI</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap');
+
+:root{
+  --blue:#134289; --cyan:#007bbb; --light:#e8f4fd;
+  --g50:#f8fafc; --g100:#f1f5f9; --g200:#e2e8f0; --g300:#cbd5e1;
+  --g600:#475569; --g700:#334155; --g900:#0f172a;
+  --red:#dc2626; --green:#059669;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{height:100%;-webkit-text-size-adjust:100%}
+body{font-family:'Barlow',sans-serif;background:var(--g100);min-height:100vh;color:var(--g900);overscroll-behavior:none}
+
+/* Prevent iOS zoom — inputs must be font-size>=16px */
+input,select,textarea{font-size:16px!important;font-family:'Barlow',sans-serif;-webkit-appearance:none;appearance:none}
+
+/* ── HEADER ── */
+.app-header{
+  background:var(--blue);
+  padding:12px 16px;
+  padding-top:calc(12px + var(--safe-top));
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 3px 14px rgba(19,66,137,.4);
+  position:sticky;top:0;z-index:200;
+}
+.logo-mark{display:flex;gap:3px;align-items:flex-end;flex-shrink:0}
+.logo-mark span{display:block;width:8px;background:var(--cyan);border-radius:2px 2px 0 0}
+.logo-mark span:nth-child(1){height:24px}
+.logo-mark span:nth-child(2){height:18px}
+.logo-mark span:nth-child(3){height:13px}
+.header-title{color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;line-height:1.2;min-width:0;flex:1}
+.header-title small{display:block;font-weight:500;font-size:10px;opacity:.72;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.header-back{
+  flex-shrink:0;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;padding:8px 14px;border-radius:20px;cursor:pointer;
+  min-height:44px;display:flex;align-items:center;
+}
+
+/* ── SCREENS ── */
+.screen{display:none}
+.screen.active{display:block}
+
+/* ── MENU ── */
+#screen-menu{
+  min-height:calc(100vh - 60px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 16px calc(40px + var(--safe-bottom));gap:24px;
+}
+.menu-heading{text-align:center}
+.menu-heading h1{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--blue)}
+.menu-heading p{color:var(--g600);font-size:14px;margin-top:5px}
+.menu-cards{display:flex;flex-direction:column;gap:14px;width:100%;max-width:480px}
+.menu-card{
+  background:#fff;border-radius:16px;border:2px solid var(--g200);
+  padding:20px 18px;cursor:pointer;
+  display:flex;align-items:center;gap:16px;
+  position:relative;overflow:hidden;min-height:80px;
+  -webkit-user-select:none;user-select:none;
+  transition:background .15s;
+}
+.menu-card::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:4px;
+  background:linear-gradient(var(--blue),var(--cyan));border-radius:16px 0 0 16px;
+}
+.menu-card:active{background:var(--light)}
+.menu-card-icon{font-size:30px;flex-shrink:0}
+.menu-card-text{flex:1;min-width:0}
+.menu-card h2{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--blue);line-height:1.25}
+.menu-card p{font-size:12px;color:var(--g600);line-height:1.45;margin-top:3px}
+.menu-card-chevron{color:var(--cyan);font-size:22px;font-weight:700;flex-shrink:0}
+
+/* ── WRAPPER ── */
+.wrapper{max-width:900px;margin:0 auto;padding:14px 12px calc(40px + var(--safe-bottom))}
+
+/* ── CARD ── */
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.07);overflow:hidden;margin-bottom:14px}
+.card-section{padding:18px 16px;border-bottom:1px solid var(--g200)}
+.card-section:last-child{border-bottom:none}
+.section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px}
+
+/* ── FIELDS ── */
+.fields-grid{display:flex;flex-direction:column;gap:12px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--g600)}
+.field input,.field select,.field textarea{
+  border:1.5px solid var(--g200);border-radius:9px;
+  padding:12px 13px;color:var(--g900);background:var(--g50);outline:none;
+  transition:border-color .2s;min-height:48px;width:100%;
+}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23475569' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-size:12px;padding-right:36px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);background:#fff;box-shadow:0 0 0 3px rgba(0,123,187,.1)}
+.field textarea{resize:vertical;min-height:80px}
+
+/* ── REGISTRO CARD (replaces table rows on mobile) ── */
+.registro-card{
+  background:var(--g50);border:1.5px solid var(--g200);border-radius:12px;
+  padding:14px;margin-bottom:10px;
+}
+.registro-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.registro-num{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--cyan)}
+.registro-badge{
+  font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;
+  color:var(--blue);background:var(--light);padding:3px 11px;border-radius:20px;border:1px solid rgba(0,123,187,.2);
+}
+.r-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.r-grid-1{margin-bottom:10px}
+.btn-del-card{
+  width:100%;margin-top:4px;background:none;border:1.5px solid var(--g200);
+  border-radius:9px;color:#94a3b8;font-size:14px;font-family:'Barlow',sans-serif;font-weight:600;
+  padding:12px;cursor:pointer;min-height:46px;display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:all .15s;
+}
+.btn-del-card:active{color:var(--red);background:#fef2f2;border-color:#fecaca}
+
+/* ── ADD ROW ── */
+.add-row-btn{
+  width:100%;margin-top:4px;background:none;border:1.5px dashed var(--g300);
+  border-radius:10px;padding:14px;font-size:14px;font-family:'Barlow',sans-serif;font-weight:600;
+  color:var(--g600);cursor:pointer;min-height:50px;
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:all .15s;
+}
+.add-row-btn:active{border-color:var(--cyan);color:var(--cyan);background:var(--light)}
+
+/* ── TOTALES ── */
+.totales-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:4px}
+.total-box{background:var(--g50);border:1.5px solid var(--g200);border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.total-box .t-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--g600)}
+.total-box .t-value{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:var(--blue)}
+.total-box.hl{background:var(--blue);border-color:var(--blue)}
+.total-box.hl .t-label,.total-box.gr .t-label{color:rgba(255,255,255,.78)}
+.total-box.hl .t-value,.total-box.gr .t-value{color:#fff}
+.total-box.gr{background:var(--green);border-color:var(--green)}
+
+/* ── SUB-HEADER ── */
+.sub-header{background:var(--g100);border:1px solid var(--g200);border-radius:8px;padding:8px 13px;margin-bottom:12px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--g700)}
+
+/* ── ACTIONS ── */
+.actions{display:flex;flex-direction:column;gap:10px;padding:16px;padding-bottom:calc(16px + var(--safe-bottom))}
+.btn{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:15px 24px;border-radius:12px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;width:100%;-webkit-user-select:none;user-select:none;transition:opacity .15s,transform .1s}
+.btn:active{opacity:.8;transform:scale(.98)}
+.btn-secondary{background:var(--g100);color:var(--g700);border:1.5px solid var(--g200)}
+.btn-excel{background:#1a7a4a;color:#fff}
+.btn-pdf{background:var(--blue);color:#fff}
+.btn-new{background:#fff;color:var(--red);border:2px solid #fecaca;}
+.actions-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ── PHOTOS ── */
+.photos-section{padding:18px 16px;border-bottom:1px solid var(--g200)}
+.photos-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.btn-photo{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:14px 10px;border-radius:12px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;min-height:52px;-webkit-user-select:none;user-select:none;transition:opacity .15s}
+.btn-photo:active{opacity:.75}
+.btn-photo-cam{background:var(--cyan);color:#fff}
+.btn-photo-file{background:var(--g100);color:var(--g700);border:1.5px solid var(--g200)}
+.photos-count{display:inline-block;margin-bottom:12px;font-size:12px;font-weight:700;color:var(--g600);background:var(--g100);padding:5px 12px;border-radius:20px;border:1px solid var(--g200)}
+.photos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.photo-thumb{position:relative;border-radius:10px;overflow:hidden;border:2px solid var(--g200);background:var(--g50);aspect-ratio:3/4;cursor:pointer}
+.photo-thumb:active{opacity:.82}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-thumb .photo-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:11px;font-weight:600;padding:20px 7px 6px;font-family:'Barlow Condensed',sans-serif}
+.photo-thumb .photo-del{position:absolute;top:6px;right:6px;background:rgba(220,38,38,.9);color:#fff;border:none;cursor:pointer;width:32px;height:32px;border-radius:50%;font-size:15px;display:flex;align-items:center;justify-content:center}
+.photo-empty{text-align:center;padding:28px 16px;color:var(--g600);border:2px dashed var(--g300);border-radius:10px;font-size:13px;line-height:1.6}
+.photo-empty span{display:block;font-size:32px;margin-bottom:8px}
+
+/* ── LIGHTBOX ── */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;padding:16px;padding-top:max(16px,var(--safe-top));padding-bottom:max(16px,var(--safe-bottom))}
+#lightbox.open{display:flex}
+#lightbox-img{max-width:100%;max-height:calc(100vh - 80px);border-radius:10px;object-fit:contain}
+#lightbox-close{position:fixed;top:max(14px,var(--safe-top));right:14px;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);color:#fff;font-size:20px;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* ── GLOSARIO ── */
+.glossary-section{
+  padding:18px 16px;border-top:1px solid var(--g200);
+  background:linear-gradient(135deg,#f0f7ff 0%,#f8fafc 100%);
+}
+.glossary-title{
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;
+}
+.glossary-grid{display:flex;flex-direction:column;gap:10px}
+.glossary-item{
+  display:flex;align-items:flex-start;gap:13px;
+  background:#fff;border-radius:12px;padding:14px;
+  border:1.5px solid var(--g200);
+}
+.glossary-badge{
+  flex-shrink:0;width:38px;height:38px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;
+}
+.glossary-n .glossary-badge{background:var(--g100);color:var(--g700);border:2px solid var(--g300)}
+.glossary-m .glossary-badge{background:var(--blue);color:#fff}
+.glossary-body{flex:1;min-width:0}
+.glossary-name{
+  font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;
+  color:var(--g900);letter-spacing:.3px;margin-bottom:3px;
+}
+.glossary-n .glossary-name{color:var(--g700)}
+.glossary-m .glossary-name{color:var(--blue)}
+.glossary-desc{font-size:13px;color:var(--g600);line-height:1.5}
+.glossary-desc strong{color:var(--g900);font-weight:600}
+
+/* ── TABLET / DESKTOP ── */
+@media(min-width:600px){
+  .app-header{padding:14px 28px}
+  .header-title{font-size:18px}
+  .header-title small{font-size:11px}
+  .menu-cards{max-width:700px;flex-direction:row}
+  .menu-card{flex:1;min-width:260px;flex-direction:column;align-items:flex-start;gap:12px}
+  .fields-grid{flex-direction:row;flex-wrap:wrap}
+  .fields-grid .field{flex:1;min-width:180px}
+  .totales-grid{grid-template-columns:repeat(3,1fr)}
+  .actions{flex-direction:row;justify-content:flex-end;padding:18px 20px}
+  .btn{width:auto;flex:none;padding:12px 24px;font-size:14px;min-height:46px}
+  .actions-row{display:contents}
+  .card-section{padding:22px 24px}
+  .wrapper{padding:20px 16px 48px}
+  .photos-section{padding:22px 24px}
+  .glossary-section{padding:22px 24px}
+  .glossary-grid{flex-direction:row;gap:14px}
+  .glossary-item{flex:1}
+}
+
+/* ── PRINT ── */
+@media print{
+  @page{margin:10mm 12mm;size:A4 portrait}
+  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .app-header{display:flex!important;padding:10px 14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .actions,.add-row-btn,.btn-del-card,.photos-toolbar,.photo-del,.header-back,#lightbox{display:none!important}
+  #screen-menu{display:none!important}
+  .wrapper{margin:0;padding:0;max-width:100%}
+  .card{box-shadow:none;border-radius:0}
+  .card-section,.photos-section{padding:9px 12px}
+  .registro-card{background:#fff;border:1px solid #ccc;border-radius:6px;padding:8px;margin-bottom:6px;page-break-inside:avoid}
+  .registro-card-header{margin-bottom:5px}
+  .r-grid-2{gap:6px} .r-grid-1{margin-bottom:6px}
+  input,select,textarea,.field input,.field select,.field textarea{border:none!important;background:transparent!important;padding:1px 0!important;min-height:0!important;font-size:11px!important;box-shadow:none!important}
+  .total-box{padding:7px 10px}
+  .total-box.hl{background:var(--blue)!important}
+  .total-box.gr{background:var(--green)!important}
+  .totales-grid{grid-template-columns:repeat(3,1fr)!important;gap:7px}
+  .sub-header{background:var(--g100)!important}
+  .glossary-section{background:#f5f9ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:10px 12px}
+  .glossary-grid{flex-direction:row!important;gap:10px}
+  .glossary-item{padding:10px;border-radius:8px}
+  .glossary-m .glossary-badge{background:var(--blue)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #print-photo-pages{display:block!important}
+  .print-photo-page{page-break-before:always;display:flex!important;flex-direction:column;align-items:center;justify-content:center;min-height:240mm;padding:8mm}
+  .print-photo-page img{max-width:100%;max-height:220mm;object-fit:contain}
+  .print-photo-page .print-caption{margin-top:6px;font-size:11px;color:#555;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="logo-mark"><span></span><span></span><span></span></div>
+  <div class="header-title">
+    Luna GI
+    <small id="headerSubtitle">Formatos de Campo</small>
+  </div>
+  <button class="header-back" onclick="goMenu()" id="backBtn" style="display:none">← Menú</button>
+</header>
+
+<!-- MENU -->
+<div id="screen-menu" class="screen active">
+  <div class="menu-heading">
+    <h1>Selecciona el Formato</h1>
+    <p>Elige el tipo de registro a capturar</p>
+  </div>
+  <div class="menu-cards">
+    <div class="menu-card" onclick="goForm('maquinaria')">
+      <div class="menu-card-icon">🚜</div>
+      <div class="menu-card-text">
+        <h2>Horas Maquinaria en Fraccionamientos</h2>
+        <p>Fecha, servicio, hora inicio / término y tipo de hora (N / M).</p>
+      </div>
+      <div class="menu-card-chevron">›</div>
+    </div>
+    <div class="menu-card" onclick="goForm('gastos')">
+      <div class="menu-card-icon">🧾</div>
+      <div class="menu-card-text">
+        <h2>Comprobación de Gastos en Campo y Viáticos</h2>
+        <p>Gastos efectivo y tarjeta con foto de tickets.</p>
+      </div>
+      <div class="menu-card-chevron">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAQUINARIA -->
+<div id="screen-maquinaria" class="screen">
+<div class="wrapper"><div class="card">
+
+  <div class="card-section">
+    <div class="section-label">Información General</div>
+    <div class="fields-grid">
+      <div class="field"><label>Fecha Inicio de Trabajos</label><input type="date" id="m-fechaInicio"></div>
+      <div class="field"><label>Fraccionamiento</label>
+        <select id="m-frac"><option value="">— Seleccionar —</option>
+        <option>ALURA</option><option>ALTAMAR</option><option>BINNIZA</option>
+        <option>OLAIA</option><option>SAMARA</option><option>SAMARITAN</option><option>Otro</option></select>
+      </div>
+      <div class="field"><label>Nombre del Proveedor</label><input type="text" id="m-proveedor" placeholder="Razón social o nombre" autocomplete="off"></div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <div class="section-label">Registros de Trabajo</div>
+    <div id="m-body"></div>
+    <button class="add-row-btn" onclick="mAddRow()">＋ Agregar registro</button>
+  </div>
+
+  <div class="card-section">
+    <div class="section-label">Resumen de Horas</div>
+    <div class="totales-grid">
+      <div class="total-box"><span class="t-label">Horas Normales (N)</span><span class="t-value" id="m-totN">0.0</span></div>
+      <div class="total-box hl"><span class="t-label">Horas Martillo (M)</span><span class="t-value" id="m-totM">0.0</span></div>
+      <div class="total-box"><span class="t-label">Total General</span><span class="t-value" id="m-totAll">0.0</span></div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <div class="section-label">Notas / Observaciones</div>
+    <div class="field"><textarea id="m-notas" placeholder="Observaciones, condiciones del terreno, incidencias…"></textarea></div>
+  </div>
+
+  <!-- Glosario -->
+  <div class="glossary-section">
+    <div class="glossary-title">📖 Referencia — Tipos de Hora</div>
+    <div class="glossary-grid">
+      <div class="glossary-item glossary-n">
+        <div class="glossary-badge">N</div>
+        <div class="glossary-body">
+          <div class="glossary-name">Normal</div>
+          <div class="glossary-desc">Incluye el uso de <strong>bote zanguero</strong> o <strong>mano de chango</strong>. Tarifa estándar por hora.</div>
+        </div>
+      </div>
+      <div class="glossary-item glossary-m">
+        <div class="glossary-badge">M</div>
+        <div class="glossary-body">
+          <div class="glossary-name">Martillo</div>
+          <div class="glossary-desc">Uso de <strong>rotomartillo</strong>. Tarifa diferenciada por mayor desgaste y potencia del equipo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="actions-row">
+      <button class="btn btn-excel" onclick="mExcel()">⬇ Excel</button>
+      <button class="btn btn-pdf" onclick="mPDF()">⬇ PDF</button>
+    </div>
+    <button class="btn btn-new" onclick="mReset()">🗑 Nuevo Registro</button>
+  </div>
+
+</div></div>
+</div>
+
+<!-- GASTOS -->
+<div id="screen-gastos" class="screen">
+<div class="wrapper"><div class="card">
+
+  <div class="card-section">
+    <div class="section-label">Información General</div>
+    <div class="fields-grid">
+      <div class="field"><label>Fecha de Comprobación</label><input type="date" id="g-fecha"></div>
+      <div class="field"><label>Nombre</label><input type="text" id="g-nombre" placeholder="Responsable del gasto" autocomplete="name"></div>
+      <div class="field"><label>Lugar / Fraccionamiento</label>
+        <select id="g-lugar"><option value="">— Seleccionar —</option>
+        <option>ALURA</option><option>ALTAMAR</option><option>BINNIZA</option>
+        <option>OLAIA</option><option>SAMARA</option><option>SAMARITAN</option><option>Otro</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <div class="section-label">Control de Gastos</div>
+    <div class="sub-header">💵 Gastos en Efectivo</div>
+    <div id="g-efectivo-body"></div>
+    <button class="add-row-btn" onclick="gAddEfectivo()">＋ Agregar gasto en efectivo</button>
+  </div>
+
+  <div class="card-section">
+    <div class="sub-header">💳 Gastos con Tarjeta</div>
+    <div id="g-tarjeta-body"></div>
+    <button class="add-row-btn" onclick="gAddTarjeta()">＋ Agregar gasto con tarjeta</button>
+  </div>
+
+  <div class="card-section">
+    <div class="section-label">Resumen de Gastos</div>
+    <div class="totales-grid">
+      <div class="total-box"><span class="t-label">Total Efectivo</span><span class="t-value" id="g-totEfectivo">$0.00</span></div>
+      <div class="total-box hl"><span class="t-label">Total Tarjeta</span><span class="t-value" id="g-totTarjeta">$0.00</span></div>
+      <div class="total-box gr"><span class="t-label">Total General</span><span class="t-value" id="g-totGeneral">$0.00</span></div>
+    </div>
+  </div>
+
+  <div class="photos-section">
+    <div class="section-label">Comprobantes / Tickets Fotográficos</div>
+    <div class="photos-toolbar">
+      <button class="btn-photo btn-photo-cam" onclick="triggerCamera()">📷 Cámara</button>
+      <button class="btn-photo btn-photo-file" onclick="triggerFile()">🖼 Galería</button>
+    </div>
+    <!-- camInput: capture=environment → cámara trasera en Android; en iOS muestra selector -->
+    <input type="file" id="g-camInput" accept="image/*" capture="environment" style="display:none" multiple onchange="handlePhotos(this.files)">
+    <input type="file" id="g-fileInput" accept="image/*" style="display:none" multiple onchange="handlePhotos(this.files)">
+    <div><span class="photos-count" id="g-photoCount">0 fotos</span></div>
+    <div id="g-photosEmpty" class="photo-empty" style="margin-top:10px">
+      <span>🧾</span>Sin comprobantes.<br>Toma foto o elige de tu galería.
+    </div>
+    <div class="photos-grid" id="g-photosGrid" style="display:none;margin-top:10px"></div>
+  </div>
+
+  <div class="card-section">
+    <div class="section-label">Notas / Observaciones Generales</div>
+    <div class="field"><textarea id="g-notas" placeholder="Comentarios adicionales…"></textarea></div>
+  </div>
+
+  <div class="actions">
+    <div class="actions-row">
+      <button class="btn btn-excel" onclick="gExcel()">⬇ Excel</button>
+      <button class="btn btn-pdf" onclick="gPDF()">⬇ PDF</button>
+    </div>
+    <button class="btn btn-new" onclick="gReset()">🗑 Nuevo Registro</button>
+  </div>
+
+</div></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Comprobante">
+</div>
+
+<div id="print-photo-pages" style="display:none"></div>
+
+<script>
+// ── NAV ─────────────────────────────────────────────────────────
+const SUBTITLES={menu:'Formatos de Campo',maquinaria:'Horas Maquinaria',gastos:'Gastos en Campo'};
+function goMenu(){
+  showScreen('menu');
+  document.getElementById('backBtn').style.display='none';
+  document.getElementById('headerSubtitle').textContent=SUBTITLES.menu;
+}
+function goForm(id){
+  showScreen(id);
+  document.getElementById('backBtn').style.display='';
+  document.getElementById('headerSubtitle').textContent=SUBTITLES[id];
+}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+// ── UTILS ────────────────────────────────────────────────────────
+const FRACCS=['ALURA','ALTAMAR','BINNIZA','OLAIA','SAMARA','SAMARITAN','Otro'];
+const SERVICIOS=['Servicio de Agua','Rastreo','Excavación','Calles','Compactación','Otro'];
+function mkField(label,inputHtml){return`<div class="field"><label>${label}</label>${inputHtml}</div>`}
+function mkSelect(cls,opts,sel=''){
+  return`<select class="${cls}">${opts.map(o=>`<option${o===sel?' selected':''}>${o}</option>`).join('')}</select>`;
+}
+
+// ── MAQUINARIA ──────────────────────────────────────────────────
+let mCount=0;
+function mAddRow(d={}){
+  mCount++;
+  const n=mCount;
+  const div=document.createElement('div');
+  div.className='registro-card';
+  div.innerHTML=`
+    <div class="registro-card-header">
+      <span class="registro-num">Registro #${n}</span>
+      <span class="registro-badge r-tot">—</span>
+    </div>
+    <div class="r-grid-2">
+      ${mkField('Fecha',`<input type="date" class="r-fecha" value="${d.fecha||''}">`)}
+      ${mkField('Tipo',`<select class="r-tipo">
+        <option value="M"${(d.tipo||'M')==='M'?' selected':''}>M – Martillo</option>
+        <option value="N"${(d.tipo||'')==='N'?' selected':''}>N – Normal</option>
+      </select>`)}
+    </div>
+    <div class="r-grid-1">${mkField('Servicio',mkSelect('r-svc',SERVICIOS,d.svc||SERVICIOS[0]))}</div>
+    <div class="r-grid-2">
+      ${mkField('Hora Inicio',`<input type="time" class="r-ini" value="${d.ini||''}">`)}
+      ${mkField('Término',`<input type="time" class="r-fin" value="${d.fin||''}">`)}
+    </div>
+    <button class="btn-del-card" onclick="this.closest('.registro-card').remove();mRecalc()">🗑 Eliminar registro</button>`;
+  div.querySelectorAll('input,select').forEach(el=>el.addEventListener('change',mRecalc));
+  div.querySelectorAll('input').forEach(el=>el.addEventListener('input',mRecalc));
+  document.getElementById('m-body').appendChild(div);
+  mRecalc();
+}
+function mRecalc(){
+  let N=0,M=0;
+  document.querySelectorAll('#m-body .registro-card').forEach(c=>{
+    const ini=c.querySelector('.r-ini').value,fin=c.querySelector('.r-fin').value;
+    const tipo=c.querySelector('.r-tipo').value;
+    const badge=c.querySelector('.r-tot');
+    if(ini&&fin){
+      const[hI,mI]=ini.split(':').map(Number),[hF,mF]=fin.split(':').map(Number);
+      let mins=(hF*60+mF)-(hI*60+mI);if(mins<0)mins+=1440;
+      const hrs=parseFloat((mins/60).toFixed(2));
+      badge.textContent=`${hrs} hrs (${tipo})`;
+      tipo==='N'?N+=hrs:M+=hrs;
+    }else{badge.textContent='—';}
+  });
+  document.getElementById('m-totN').textContent=N.toFixed(1);
+  document.getElementById('m-totM').textContent=M.toFixed(1);
+  document.getElementById('m-totAll').textContent=(N+M).toFixed(1);
+}
+function mReset(){
+  if(!confirm('¿Borrar todo e iniciar un nuevo registro de Maquinaria?'))return;
+  ['m-fechaInicio','m-frac','m-proveedor','m-notas'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('m-body').innerHTML='';mCount=0;
+  for(let i=0;i<3;i++)mAddRow();
+}
+function mExcel(){
+  const wb=XLSX.utils.book_new();
+  const rows=[['FORMATO DE REGISTRO – HORAS MAQUINARIA EN FRACCIONAMIENTOS'],[''],
+    ['Fecha Inicio:',document.getElementById('m-fechaInicio').value,'Fraccionamiento:',
+     document.getElementById('m-frac').value,'Proveedor:',document.getElementById('m-proveedor').value],[''],
+    ['FECHA','SERVICIO','HORA INICIO','TÉRMINO','TOTAL HRS.','TIPO']];
+  document.querySelectorAll('#m-body .registro-card').forEach(c=>{
+    const ini=c.querySelector('.r-ini').value,fin=c.querySelector('.r-fin').value,tipo=c.querySelector('.r-tipo').value;
+    let hrs='';
+    if(ini&&fin){const[hI,mI]=ini.split(':').map(Number),[hF,mF]=fin.split(':').map(Number);let m=(hF*60+mF)-(hI*60+mI);if(m<0)m+=1440;hrs=parseFloat((m/60).toFixed(2));}
+    rows.push([c.querySelector('.r-fecha').value,c.querySelector('.r-svc').value,ini,fin,hrs,tipo]);
+  });
+  rows.push([''],['Horas Normales (N):',document.getElementById('m-totN').textContent],
+    ['Horas de Martillo (M):',document.getElementById('m-totM').textContent],
+    ['Total General:',document.getElementById('m-totAll').textContent]);
+  if(document.getElementById('m-notas').value)rows.push(['Notas:',document.getElementById('m-notas').value]);
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols']=[{wch:14},{wch:22},{wch:12},{wch:12},{wch:12},{wch:10}];
+  XLSX.utils.book_append_sheet(wb,ws,'Horas Maquinaria');
+  XLSX.writeFile(wb,`RegistroHoras_${document.getElementById('m-frac').value||'LunaGI'}.xlsx`);
+}
+function mPDF(){
+  if(!document.getElementById('m-frac').value){alert('Selecciona el fraccionamiento.');return;}
+  window.print();
+}
+
+// ── GASTOS ──────────────────────────────────────────────────────
+let gCount=0;
+function gMakeCard(tipo,d={}){
+  gCount++;
+  const n=gCount;
+  const fracOpts=`<option value="">— Seleccionar —</option>`+FRACCS.map(f=>`<option${f===(d.destino||'')?` selected`:''}>${f}</option>`).join('');
+  const ico=tipo==='ef'?'💵':'💳';
+  const div=document.createElement('div');
+  div.className='registro-card';
+  div.innerHTML=`
+    <div class="registro-card-header">
+      <span class="registro-num">${ico} Gasto #${n}</span>
+    </div>
+    <div class="r-grid-2">
+      ${mkField('Fecha',`<input type="date" class="g-fecha" value="${d.fecha||''}">`)}
+      ${mkField('Total ($)',`<input type="number" class="g-total" step="0.01" min="0" placeholder="0.00" value="${d.total||''}" inputmode="decimal">`)}
+    </div>
+    <div class="r-grid-1">${mkField('Concepto',`<input type="text" class="g-concepto" placeholder="Describe el gasto" value="${d.concepto||''}" autocomplete="off">`)}</div>
+    <div class="r-grid-1">${mkField('Destino / Fraccionamiento',`<select class="g-destino">${fracOpts}</select>`)}</div>
+    <div class="r-grid-1">${mkField('Observaciones',`<input type="text" class="g-obs" placeholder="Notas adicionales" value="${d.obs||''}" autocomplete="off">`)}</div>
+    <button class="btn-del-card" onclick="this.closest('.registro-card').remove();gRecalc()">🗑 Eliminar gasto</button>`;
+  div.querySelector('.g-total').addEventListener('input',gRecalc);
+  return div;
+}
+function gAddEfectivo(d={}){document.getElementById('g-efectivo-body').appendChild(gMakeCard('ef',d));gRecalc();}
+function gAddTarjeta(d={}){document.getElementById('g-tarjeta-body').appendChild(gMakeCard('tj',d));gRecalc();}
+function gSum(bodyId){let t=0;document.querySelectorAll(`#${bodyId} .g-total`).forEach(i=>{const v=parseFloat(i.value);if(!isNaN(v))t+=v;});return t;}
+function fmt(n){return'$'+n.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function gRecalc(){
+  const ef=gSum('g-efectivo-body'),tj=gSum('g-tarjeta-body');
+  document.getElementById('g-totEfectivo').textContent=fmt(ef);
+  document.getElementById('g-totTarjeta').textContent=fmt(tj);
+  document.getElementById('g-totGeneral').textContent=fmt(ef+tj);
+}
+function gReset(){
+  if(!confirm('¿Borrar todo e iniciar un nuevo registro de Gastos?'))return;
+  ['g-fecha','g-nombre','g-lugar','g-notas'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('g-efectivo-body').innerHTML='';
+  document.getElementById('g-tarjeta-body').innerHTML='';
+  gPhotos=[];gCount=0;renderPhotos();
+  for(let i=0;i<3;i++)gAddEfectivo();
+  for(let i=0;i<3;i++)gAddTarjeta();
+}
+function gExtract(bodyId){
+  const out=[];
+  document.querySelectorAll(`#${bodyId} .registro-card`).forEach(c=>{
+    const vals=[c.querySelector('.g-fecha').value,c.querySelector('.g-concepto').value,
+      c.querySelector('.g-destino').value,parseFloat(c.querySelector('.g-total').value)||'',c.querySelector('.g-obs').value];
+    if(vals.some(v=>v!==''&&v!==0))out.push(vals);
+  });
+  return out;
+}
+function gExcel(){
+  const wb=XLSX.utils.book_new();
+  const cols=['FECHA','CONCEPTO','DESTINO/FRACCIONAMIENTO','TOTAL ($)','OBSERVACIONES'];
+  const rows=[['FORMATO DE COMPROBACIÓN DE GASTOS EN CAMPO Y VIÁTICOS'],[''],
+    ['Fecha:',document.getElementById('g-fecha').value,'Nombre:',document.getElementById('g-nombre').value,'Lugar:',document.getElementById('g-lugar').value],[''],
+    ['GASTOS EN EFECTIVO'],cols,...gExtract('g-efectivo-body'),
+    ['Total Efectivo:','','',gSum('g-efectivo-body'),''],[''],
+    ['GASTOS CON TARJETA'],cols,...gExtract('g-tarjeta-body'),
+    ['Total Tarjeta:','','',gSum('g-tarjeta-body'),''],[''],
+    ['TOTAL GENERAL:','','',gSum('g-efectivo-body')+gSum('g-tarjeta-body'),'']];
+  if(document.getElementById('g-notas').value)rows.push(['Notas:',document.getElementById('g-notas').value]);
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols']=[{wch:13},{wch:22},{wch:20},{wch:14},{wch:28}];
+  XLSX.utils.book_append_sheet(wb,ws,'Comprobación Gastos');
+  XLSX.writeFile(wb,`ComprobacionGastos_${document.getElementById('g-lugar').value||'LunaGI'}.xlsx`);
+}
+function gPDF(){
+  if(!document.getElementById('g-lugar').value){alert('Selecciona el fraccionamiento.');return;}
+  buildPrintPhotoPages();
+  document.getElementById('print-photo-pages').style.display='block';
+  setTimeout(()=>{window.print();setTimeout(()=>document.getElementById('print-photo-pages').style.display='none',600);},200);
+}
+
+// ── PHOTOS ──────────────────────────────────────────────────────
+let gPhotos=[];
+function triggerCamera(){document.getElementById('g-camInput').click();}
+function triggerFile(){document.getElementById('g-fileInput').click();}
+function handlePhotos(files){
+  if(!files||!files.length)return;
+  Array.from(files).forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      // Resize to max 1400px to keep memory manageable on mobile
+      const img=new Image();
+      img.onload=()=>{
+        const MAX=1400;
+        let w=img.width,h=img.height;
+        if(w>MAX||h>MAX){const r=Math.min(MAX/w,MAX/h);w=Math.round(w*r);h=Math.round(h*r);}
+        const canvas=document.createElement('canvas');
+        canvas.width=w;canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        gPhotos.push({dataUrl:canvas.toDataURL('image/jpeg',0.82),name:file.name});
+        renderPhotos();
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  // Reset so same file can be selected again
+  document.getElementById('g-camInput').value='';
+  document.getElementById('g-fileInput').value='';
+}
+function renderPhotos(){
+  const grid=document.getElementById('g-photosGrid');
+  const empty=document.getElementById('g-photosEmpty');
+  document.getElementById('g-photoCount').textContent=`${gPhotos.length} foto${gPhotos.length!==1?'s':''}`;
+  if(!gPhotos.length){grid.style.display='none';empty.style.display='';grid.innerHTML='';return;}
+  empty.style.display='none';grid.style.display='grid';
+  grid.innerHTML=gPhotos.map((p,i)=>`
+    <div class="photo-thumb" onclick="openLightbox(${i})">
+      <img src="${p.dataUrl}" alt="Comprobante ${i+1}" loading="lazy">
+      <div class="photo-label">Comprobante ${i+1}</div>
+      <button class="photo-del" onclick="event.stopPropagation();deletePhoto(${i})">✕</button>
+    </div>`).join('');
+}
+function deletePhoto(idx){if(!confirm('¿Eliminar comprobante?'))return;gPhotos.splice(idx,1);renderPhotos();}
+function openLightbox(idx){
+  document.getElementById('lightbox-img').src=gPhotos[idx].dataUrl;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-img').src='';
+  document.body.style.overflow='';
+}
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox'))closeLightbox();});
+// Swipe down to close on mobile
+let _ty=0;
+document.getElementById('lightbox').addEventListener('touchstart',e=>{_ty=e.touches[0].clientY;},{passive:true});
+document.getElementById('lightbox').addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_ty>70)closeLightbox();},{passive:true});
+function buildPrintPhotoPages(){
+  const c=document.getElementById('print-photo-pages');
+  if(!gPhotos.length){c.innerHTML='';return;}
+  c.innerHTML=gPhotos.map((p,i)=>`<div class="print-photo-page"><img src="${p.dataUrl}" alt="Comprobante ${i+1}"><div class="print-caption">Comprobante ${i+1} de ${gPhotos.length}</div></div>`).join('');
+}
+
+// ── INIT ────────────────────────────────────────────────────────
+// Maquinaria: 3 filas vacías
+for(let i=0;i<3;i++) mAddRow();
+
+// Gastos: 3 filas vacías en cada sección
+for(let i=0;i<3;i++) gAddEfectivo();
+for(let i=0;i<3;i++) gAddTarjeta();
+</script>
+</body>
+</html>

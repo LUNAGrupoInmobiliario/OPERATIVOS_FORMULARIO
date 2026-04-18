@@ -1388,69 +1388,9 @@ async function waSheetAction(type){
 // ── SERVICE WORKER (OFFLINE) ─────────────────────────────────────
 (function(){
   if(!('serviceWorker' in navigator)) return;
-
-  const SW_VERSION = 'luna-gi-v2';
-  const URLS_TO_CACHE = [
-    location.href.split('?')[0], // esta página
-    'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
-    'https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap'
-  ];
-
-  const swCode = `
-const CACHE = '${SW_VERSION}';
-const URLS  = ${JSON.stringify(URLS_TO_CACHE)};
-
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(cache =>
-      Promise.allSettled(URLS.map(url =>
-        cache.add(url).catch(()=>{})
-      ))
-    ).then(() => self.skipWaiting())
-  );
-});
-
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(response => {
-        if (!response || response.status !== 200 || response.type === 'opaque') return response;
-        const clone = response.clone();
-        caches.open(CACHE).then(cache => cache.put(e.request, clone));
-        return response;
-      }).catch(() => cached || new Response('Sin conexión', {status: 503}));
-    })
-  );
-});
-`;
-
-  const blob = new Blob([swCode], {type: 'application/javascript'});
-  const swUrl = URL.createObjectURL(blob);
-
-  navigator.serviceWorker.register(swUrl, {scope: './'})
-    .then(reg => {
-      console.log('[Luna GI] Service Worker registrado:', reg.scope);
-    })
-    .catch(err => {
-      // Blob SW no funciona en todos los navegadores — fallback silencioso
-      console.warn('[Luna GI] SW Blob no soportado, intentando cache manual…', err);
-      // Cache manual: guarda el HTML actual en CacheStorage directamente
-      if ('caches' in window) {
-        caches.open(SW_VERSION).then(cache => {
-          cache.add(location.href).catch(()=>{});
-          cache.add('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js').catch(()=>{});
-        });
-      }
-    });
+  navigator.serviceWorker.register('./sw.js')
+    .then(reg => console.log('[Luna GI] SW registrado:', reg.scope))
+    .catch(err => console.warn('[Luna GI] SW no registrado:', err));
 })();
 
 // ══════════════════════════════════════════════════════════════════

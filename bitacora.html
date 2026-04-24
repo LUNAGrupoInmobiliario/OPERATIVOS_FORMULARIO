@@ -5,23 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>Bitácora — Luna GI</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAuElEQVR4nGNgGAUDDBixCW7psflPKwt9So6g2MlET8uxmc+ET5IejsAIAXoDFAc4BkXRxVJkezBCgNaOQDefhRhFtASDKw0MBMAaBeggP6NuK7kWTJzR5I1PnmAIUGI5MfoJOoCQDyjVj1Iuf703jS4lIQMDAwO3UhYjA8NoGhhNA6NpYDQN4EgD+9cto5nF6FU9RhTQ0nJs5jPhk6SHIwa8PYDiAPROA60Asj0YIUBrR9DLk0MHAACjF1Qq1Vw0LAAAAABJRU5ErkJggg==">
-  <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAaUlEQVR4nGNgoBAwwhhbemz+k6rZp+QIIyO5mmGAiYGBgcExKIoszY5BURAvfL03jWwXsKAL5GfUbSWkaeKMJm8Ym4lcm0cNQACKo5FiF8DTwf51y0jWDE+JFOcFn5IjjIQUYgM+JUcYAU3qG8hMP6GBAAAAAElFTkSuQmCC">
-  <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAADZUlEQVR4nO3cIZITURSG0YbCsQvWgUEzaiQroDAYNAI9BkOxgpEo0BjWwS7QYAjVTCVTyeTel7w/5+ipdNLz1c3rdF6WBQAAAAAAAAAAAAAAACo9OtWBv948/32qYzPG1bsfw/saekARX65RcQ85iJDZ6A77ceeDL4uY+V93D61Bi5ltOrtoC1rM3Kerj5agxcw+OjopD1rMHKK6l/aLQhipNGjTmYeo7MaEJoqgiVIWtOUGx6jqx4QmiqCJImiiCJoogiaKoIlSFvQpttuQo6ofE5oogiZKadCWHTxEZTcmNFHKg35x/ar6IQlW3UvLhBY1++jopDToXz8//fvGlKi5z7qPdTfHal1Di5ptOrtovygUNWvdPTxpffS/Ni/i+5fbEYfjDI0abEOC3li/KHHnO8W7c9kH2pULey7T02dvju7RjRWiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiTJ013elt6/ffzv1c0j38fOHl6d+DoeackKLeYwZz/OUQcMugiaKoIkiaKIImiiCJoqgiSJoogiaKFMGPeMt2RnNeJ794Dlnww+ewx2CJoqgiSJoogiaKIImiqCJImiiCJoodn2z04y3vqec0GIeY8bzPGXQsIugiSJoogiaKIImiqCJImiiCJoogibKlEHPeEt2RjOeZ7u+ORt2fcMdgiaKoIkiaKIImiiCJoqgiSJoogiaKHZ9s9OMt76nnNBiHmPG8zxl0LCLoIkiaKIImiiCJoqgiSJoogiaKIImypRBz3hLdkYznme7vjkbdn3DHYImiqCJImiiCJooZZ9yLMthn3R8/3JbeWjO0IvrV3v/bcUnHMsyeAuWiC/L+v99SNzHGBK0kNk00B12+xpazKx199AatJjZprOL0qDXC3sxc591H1UXhMvSNKHFzD46OikPWswcoroXN1aIUhr015vnvkLKwSq7MaGJImiilAVtucExqvoxoYkiaKIImiiCJoqgiSJoopQFffXuR+l2Li5LVT8mNFEETZTSoC07eIjKbkxoopQHbUpziOpeWia0qNlHRydtSw5Rc5+uPlrX0KJmm84u2i8KRc1adw9DY7MJ4HKNGmwnm57izufdGQAAAAAAAAAAAAAALtQfyYjQJ70hR90AAAAASUVORK5CYII=">
-
-
-
-
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 <style>
 :root{
-  --blue:#134289;--cyan:#007bbb;--green:#059669;--red:#dc2626;--orange:#d97706;
+  --blue:#134289;--cyan:#007bbb;--green:#059669;--red:#dc2626;
   --g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;
   --g400:#94a3b8;--g500:#64748b;--g600:#475569;--g700:#334155;--g900:#0f172a;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g50);min-height:100vh;color:var(--g900)}
+
+/* PIN */
 #pin-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;background:linear-gradient(135deg,#0f2a5e 0%,var(--blue) 100%)}
 .pin-card{background:#fff;border-radius:24px;padding:36px 28px;width:min(340px,100%);box-shadow:0 8px 40px rgba(0,0,0,.25);text-align:center}
 .pin-logo{width:64px;height:64px;background:var(--blue);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:30px}
@@ -37,6 +32,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g50);min-heigh
 .key.empty{background:transparent;border:none;cursor:default}
 #pin-error{font-size:13px;color:var(--red);font-weight:600;min-height:20px;margin-top:4px}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+
+/* MAIN */
 #main-screen{display:none}
 .top-bar{background:var(--blue);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:10}
 .top-bar h1{font-size:17px;font-weight:700;color:#fff;white-space:nowrap}
@@ -45,50 +42,52 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g50);min-heigh
 .tbtn-csv{background:rgba(255,255,255,.2);color:#fff}
 .tbtn-clear{background:#dc2626;color:#fff}
 .tbtn-out{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8)}
-.tabs-bar{background:#fff;border-bottom:2px solid var(--g200);display:flex;position:sticky;top:57px;z-index:9}
-.tab-btn{flex:1;padding:14px 10px;font-size:13px;font-weight:700;border:none;background:transparent;cursor:pointer;color:var(--g500);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;font-family:inherit}
-.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
-.tab-count{display:inline-block;background:var(--g100);color:var(--g500);font-size:10px;font-weight:700;border-radius:10px;padding:1px 7px;margin-left:6px}
-.tab-btn.active .tab-count{background:#e0eaff;color:var(--blue)}
-.tab-btn.tab-cot.active{color:var(--orange);border-bottom-color:var(--orange)}
-.tab-btn.tab-cot.active .tab-count{background:#fef3c7;color:var(--orange)}
+
 .content{padding:16px;max-width:800px;margin:0 auto}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;margin-top:12px}
+
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
+@media(max-width:600px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
 .stat-box{background:#fff;border-radius:14px;padding:16px 10px;text-align:center;border:1.5px solid var(--g200)}
 .stat-num{font-size:30px;font-weight:700;color:var(--blue)}
 .stat-lbl{font-size:10px;color:var(--g500);margin-top:3px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .stat-box.maq .stat-num{color:#0369a1}
 .stat-box.gas .stat-num{color:var(--green)}
-.stat-box.cot-tot .stat-num{color:var(--orange)}
-.stat-box.cot-hoy .stat-num{color:var(--green)}
+.stat-box.veh .stat-num{color:#a16207}
+.stat-box.cot .stat-num{color:#7c3aed}
+
 .filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .flt{font-size:11px;font-weight:700;padding:7px 16px;border-radius:20px;border:1.5px solid var(--g200);background:#fff;cursor:pointer;color:var(--g600);text-transform:uppercase;letter-spacing:.5px;transition:all .15s}
 .flt.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
 .search-wrap{position:relative;margin-bottom:14px}
 .search-wrap input{width:100%;padding:11px 14px 11px 40px;border:1.5px solid var(--g200);border-radius:12px;font-size:14px;background:#fff;color:var(--g900);outline:none}
 .search-wrap input:focus{border-color:var(--cyan)}
 .si{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--g400);font-size:15px}
+
 .bit-list{display:flex;flex-direction:column;gap:10px}
 .bit-item{background:#fff;border:1.5px solid var(--g200);border-radius:14px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px}
 .bi-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .bi-icon.maq{background:#e0f2fe}
 .bi-icon.gas{background:#dcfce7}
-.bi-icon.cot{background:#fef3c7}
+.bi-icon.veh{background:#fef9c3}
+.bi-icon.cot{background:#ede9fe}
 .bi-body{flex:1;min-width:0}
 .bi-nombre{font-weight:700;font-size:15px;color:var(--g900)}
 .bi-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:.5px;text-transform:uppercase;display:inline-block;margin:4px 0}
 .bi-badge.maq{background:#e0f2fe;color:#0369a1}
 .bi-badge.gas{background:#dcfce7;color:#15803d}
-.bi-badge.cot{background:#fef3c7;color:#92400e}
+.bi-badge.veh{background:#fef9c3;color:#a16207}
+.bi-badge.cot{background:#ede9fe;color:#7c3aed}
 .bi-meta{font-size:12px;color:var(--g500);margin-top:2px}
 .bi-ua{font-size:11px;color:var(--g400);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 .empty-state{text-align:center;padding:48px 20px;color:var(--g400)}
 .empty-state span{display:block;font-size:42px;margin-bottom:12px}
 .loader{display:flex;align-items:center;justify-content:center;padding:48px;gap:12px;color:var(--g400);font-size:14px}
 .spinner{width:22px;height:22px;border:3px solid var(--g200);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* Confirm */
 #confirm-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
 #confirm-modal.open{display:flex}
 .c-box{background:#fff;border-radius:20px;padding:28px 24px;width:min(320px,90vw);text-align:center}
@@ -99,14 +98,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g50);min-heigh
 .c-no{background:var(--g100);color:var(--g700)}
 .c-yes{background:var(--red);color:#fff}
 </style>
-
-
 </head>
 <body>
 
+<!-- PIN -->
 <div id="pin-screen">
   <div class="pin-card">
-    <div class="pin-logo">&#x1F512;</div>
+    <div class="pin-logo">🔒</div>
     <h2>Bitácora Luna GI</h2>
     <p>Ingresa tu PIN de 4 dígitos</p>
     <div id="pin-dots">
@@ -127,83 +125,62 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g50);min-heigh
       <button class="key" onclick="pk('9')">9</button>
       <div class="key empty"></div>
       <button class="key" onclick="pk('0')">0</button>
-      <button class="key del" onclick="pdel()">&#x232B;</button>
+      <button class="key del" onclick="pdel()">⌫</button>
     </div>
     <div id="pin-error"></div>
   </div>
 </div>
 
+<!-- MAIN -->
 <div id="main-screen">
   <div class="top-bar">
-    <h1>&#x1F4CB; Bitácora Luna GI</h1>
+    <h1>📋 Bitácora de Uso</h1>
     <div class="top-actions">
-      <button class="tbtn tbtn-csv" onclick="recargar()">&#x21BB; Actualizar</button>
-      <button class="tbtn tbtn-csv" onclick="exportCSV()">&#x2B07; CSV</button>
-      <button class="tbtn tbtn-clear" onclick="confirmClear()">&#x1F5D1; Limpiar</button>
+      <button class="tbtn tbtn-csv" onclick="exportCSV()">⬇ CSV</button>
+      <button class="tbtn tbtn-clear" onclick="confirmClear()">🗑 Limpiar</button>
       <button class="tbtn tbtn-out" onclick="logout()">Salir</button>
     </div>
   </div>
-
-  <div class="tabs-bar">
-    <button class="tab-btn active" id="tab-op" onclick="switchTab('op')">
-      &#x1F4CB; Operativos <span class="tab-count" id="tc-op">—</span>
-    </button>
-    <button class="tab-btn tab-cot" id="tab-cot" onclick="switchTab('cot')">
-      &#x1F3E0; Cotizador <span class="tab-count" id="tc-cot">—</span>
-    </button>
-  </div>
-
   <div class="content">
-    <div class="tab-panel active" id="panel-op">
-      <div class="stats-grid">
-        <div class="stat-box"><div class="stat-num" id="s-tot">—</div><div class="stat-lbl">Total</div></div>
-        <div class="stat-box maq"><div class="stat-num" id="s-maq">—</div><div class="stat-lbl">Maquinaria</div></div>
-        <div class="stat-box gas"><div class="stat-num" id="s-gas">—</div><div class="stat-lbl">Gastos</div></div>
-      </div>
-      <div class="filters">
-        <button class="flt active" onclick="setF('all',this)">Todos</button>
-        <button class="flt" onclick="setF('maquinaria',this)">Maquinaria</button>
-        <button class="flt" onclick="setF('gastos',this)">Gastos</button>
-      </div>
-      <div class="search-wrap">
-        <span class="si">&#x1F50D;</span>
-        <input type="text" id="q-op" placeholder="Buscar por nombre…" oninput="renderOp()">
-      </div>
-      <div id="list-op" class="bit-list">
-        <div class="loader"><div class="spinner"></div> Cargando…</div>
-      </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num" id="s-tot">—</div><div class="stat-lbl">Total</div></div>
+      <div class="stat-box maq"><div class="stat-num" id="s-maq">—</div><div class="stat-lbl">Maquinaria</div></div>
+      <div class="stat-box gas"><div class="stat-num" id="s-gas">—</div><div class="stat-lbl">Gastos</div></div>
+      <div class="stat-box veh"><div class="stat-num" id="s-veh">—</div><div class="stat-lbl">Vehículos</div></div>
+      <div class="stat-box cot"><div class="stat-num" id="s-cot">—</div><div class="stat-lbl">Cotizador</div></div>
     </div>
-
-    <div class="tab-panel" id="panel-cot">
-      <div class="stats-grid">
-        <div class="stat-box cot-tot"><div class="stat-num" id="s-cot-tot">—</div><div class="stat-lbl">Total Cotizaciones</div></div>
-        <div class="stat-box cot-hoy"><div class="stat-num" id="s-cot-hoy">—</div><div class="stat-lbl">Hoy</div></div>
-        <div class="stat-box"><div class="stat-num" id="s-cot-sem">—</div><div class="stat-lbl">Esta semana</div></div>
-      </div>
-      <div class="search-wrap">
-        <span class="si">&#x1F50D;</span>
-        <input type="text" id="q-cot" placeholder="Buscar por inversionista, asesor o proyecto…" oninput="renderCot()">
-      </div>
-      <div id="list-cot" class="bit-list">
-        <div class="loader"><div class="spinner"></div> Cargando…</div>
-      </div>
+    <div class="filters">
+      <button class="flt active" onclick="setF('all',this)">Todos</button>
+      <button class="flt" onclick="setF('maquinaria',this)">Maquinaria</button>
+      <button class="flt" onclick="setF('gastos',this)">Gastos</button>
+      <button class="flt" onclick="setF('vehiculos',this)">Vehículos</button>
+      <button class="flt" onclick="setF('cotizador',this)">Cotizador</button>
+    </div>
+    <div class="search-wrap">
+      <span class="si">🔍</span>
+      <input type="text" id="q" placeholder="Buscar por nombre, acción, IP o formulario…" oninput="render()">
+    </div>
+    <div id="list" class="bit-list">
+      <div class="loader"><div class="spinner"></div> Cargando…</div>
     </div>
   </div>
 </div>
 
+<!-- CONFIRM -->
 <div id="confirm-modal">
   <div class="c-box">
-    <h3 id="confirm-title">Limpiar bitácora</h3>
-    <p id="confirm-msg">Se eliminarán permanentemente los registros seleccionados.</p>
+    <h3>¿Limpiar bitácora?</h3>
+    <p>Se eliminarán permanentemente todos los registros de Firebase.</p>
     <div class="c-btns">
       <button class="c-no" onclick="closeConfirm()">Cancelar</button>
-      <button class="c-yes" onclick="doClear()">Eliminar</button>
+      <button class="c-yes" onclick="doClear()">Eliminar todo</button>
     </div>
   </div>
 </div>
 
 <script>
-const PIN = '0992';
+const PIN = '1289'; // ← CAMBIA ANTES DE SUBIR
+
 const FB = {
   apiKey:"AIzaSyCJhR10bVifVG50RJ20GPDxkPEw6RpJqCM",
   authDomain:"formulario-operativo-luna-gi.firebaseapp.com",
@@ -215,16 +192,7 @@ const FB = {
 if(!firebase.apps.length) firebase.initializeApp(FB);
 const db = firebase.firestore();
 
-// RECARGAR
-function recargar(){
-  const btn = document.querySelector('.tbtn[onclick="recargar()"]');
-  if(btn){ btn.textContent='⏳ Cargando…'; btn.disabled=true; }
-  load().finally(()=>{
-    if(btn){ btn.innerHTML='&#x21BB; Actualizar'; btn.disabled=false; }
-  });
-}
-
-// PIN
+// ── PIN ───────────────────────────────────────────────────────────
 let pin='';
 function pk(d){
   if(pin.length>=4) return;
@@ -247,141 +215,132 @@ function check(){
     document.getElementById('pin-error').textContent='PIN incorrecto, intenta de nuevo';
     const dots=document.getElementById('pin-dots');
     dots.style.animation='shake .4s ease';
-    setTimeout(()=>{dots.style.animation='';pin='';for(let i=0;i<4;i++)document.getElementById('d'+i).classList.remove('filled');document.getElementById('pin-error').textContent='';},700);
+    setTimeout(()=>{
+      dots.style.animation='';
+      pin='';
+      for(let i=0;i<4;i++) document.getElementById('d'+i).classList.remove('filled');
+      document.getElementById('pin-error').textContent='';
+    },700);
   }
 }
 function logout(){
   document.getElementById('main-screen').style.display='none';
   document.getElementById('pin-screen').style.display='flex';
-  pin='';allOp=[];allCot=[];
+  pin=''; all=[];
   for(let i=0;i<4;i++) document.getElementById('d'+i).classList.remove('filled');
 }
 
-// TABS
-let activeTab='op';
-function switchTab(tab){
-  activeTab=tab;
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('panel-'+tab).classList.add('active');
-  document.getElementById('tab-'+tab).classList.add('active');
-}
+// ── DATA ──────────────────────────────────────────────────────────
+let all=[], filter='all';
 
-// DATA
-let allOp=[], allCot=[], filterOp='all';
 async function load(){
+  document.getElementById('list').innerHTML='<div class="loader"><div class="spinner"></div> Cargando registros…</div>';
   try{
     const snap=await db.collection('bitacora').orderBy('ts','desc').limit(500).get();
-    const all=snap.docs.map(d=>({id:d.id,...d.data()}));
-    allOp=all.filter(r=>r.formulario!=='Cotizador');
-    allCot=all.filter(r=>r.formulario==='Cotizador');
-    document.getElementById('tc-op').textContent=allOp.length;
-    document.getElementById('tc-cot').textContent=allCot.length;
-    statsOp(); renderOp();
-    statsCot(); renderCot();
+    all=snap.docs.map(d=>({id:d.id,...d.data()}));
+    stats(); render();
   }catch(e){
-    ['list-op','list-cot'].forEach(id=>document.getElementById(id).innerHTML='<div class="empty-state"><span>⚠️</span>'+e.message+'</div>');
+    document.getElementById('list').innerHTML=`<div class="empty-state"><span>⚠️</span>${e.message}</div>`;
   }
 }
 
-// OPERATIVOS
-function statsOp(){
-  const maq=allOp.filter(r=>(r.formulario||'').toLowerCase().includes('maquinaria')).length;
-  const gas=allOp.filter(r=>(r.formulario||'').toLowerCase().includes('gastos')).length;
-  document.getElementById('s-tot').textContent=allOp.length;
+function stats(){
+  const maq=all.filter(r=>(r.formulario||'').toLowerCase().includes('maquinaria')).length;
+  const gas=all.filter(r=>(r.formulario||'').toLowerCase().includes('gastos')).length;
+  const veh=all.filter(r=>(r.formulario||'').toLowerCase().includes('veh')).length;
+  const cot=all.filter(r=>(r.formulario||'').toLowerCase().includes('cotizador')).length;
+  document.getElementById('s-tot').textContent=all.length;
   document.getElementById('s-maq').textContent=maq;
   document.getElementById('s-gas').textContent=gas;
+  document.getElementById('s-veh').textContent=veh;
+  document.getElementById('s-cot').textContent=cot;
 }
+
 function setF(f,btn){
-  filterOp=f;
-  document.querySelectorAll('#panel-op .flt').forEach(b=>b.classList.remove('active'));
+  filter=f;
+  document.querySelectorAll('.flt').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  renderOp();
+  render();
 }
-function renderOp(){
-  const q=(document.getElementById('q-op').value||'').toLowerCase();
-  let rows=[...allOp];
-  if(filterOp==='maquinaria') rows=rows.filter(r=>(r.formulario||'').toLowerCase().includes('maquinaria'));
-  if(filterOp==='gastos') rows=rows.filter(r=>(r.formulario||'').toLowerCase().includes('gastos'));
-  if(q) rows=rows.filter(r=>(r.nombre||'').toLowerCase().includes(q));
-  const el=document.getElementById('list-op');
+
+function render(){
+  const q=(document.getElementById('q').value||'').toLowerCase();
+  let rows=[...all];
+  if(filter==='maquinaria') rows=rows.filter(r=>(r.formulario||'').toLowerCase().includes('maquinaria'));
+  if(filter==='gastos')     rows=rows.filter(r=>(r.formulario||'').toLowerCase().includes('gastos'));
+  if(filter==='vehiculos')  rows=rows.filter(r=>(r.formulario||'').toLowerCase().includes('veh'));
+  if(filter==='cotizador')  rows=rows.filter(r=>(r.formulario||'').toLowerCase().includes('cotizador'));
+  if(q) rows=rows.filter(r=>
+    (r.nombre||'').toLowerCase().includes(q) ||
+    (r.accion||'').toLowerCase().includes(q) ||
+    (r.ip||'').toLowerCase().includes(q) ||
+    (r.formulario||'').toLowerCase().includes(q)
+  );
+
+  const el=document.getElementById('list');
   if(!rows.length){el.innerHTML='<div class="empty-state"><span>📭</span>Sin registros</div>';return;}
   el.innerHTML='';
   rows.forEach(r=>{
-    const isMaq=(r.formulario||'').toLowerCase().includes('maquinaria');
-    const div=document.createElement('div');div.className='bit-item';
-    div.innerHTML='<div class="bi-icon '+(isMaq?'maq':'gas')+'">'+(isMaq?'🚜':'🧾')+'</div><div class="bi-body"><div class="bi-nombre">'+esc(r.nombre||'—')+'</div><span class="bi-badge '+(isMaq?'maq':'gas')+'">'+esc(r.formulario||'—')+'</span><div class="bi-meta">📅 '+fmtDT(r.fecha)+' &nbsp;·&nbsp; '+devLabel(r.ua||'')+'</div>'+(r.ua?'<div class="bi-ua" title="'+esc(r.ua)+'">'+esc(r.ua)+'</div>':'')+'</div>';
+    const form=(r.formulario||'').toLowerCase();
+    const isMaq = form.includes('maquinaria');
+    const isVeh = form.includes('veh');
+    const isCot = form.includes('cotizador');
+    const iconClass = isMaq?'maq':isVeh?'veh':isCot?'cot':'gas';
+    const icon      = isMaq?'🚜':isVeh?'🚗':isCot?'🏠':'🧾';
+    const badgeClass= iconClass;
+    const disp = r.dispositivo || (()=>{
+      const ua=r.ua||'';
+      return ua.includes('iPhone')||ua.includes('iPad')?'iOS':ua.includes('Android')?'Android':'PC';
+    })();
+    const dispIcon = disp.includes('iOS')?'📱':disp.includes('Android')?'📱':'💻';
+    const div=document.createElement('div');
+    div.className='bit-item';
+    div.innerHTML=`
+      <div class="bi-icon ${iconClass}">${icon}</div>
+      <div class="bi-body">
+        <div class="bi-nombre">${esc(r.nombre||'—')}</div>
+        <span class="bi-badge ${badgeClass}">${esc(r.formulario||'—')}</span>
+        ${r.accion?`<div style="font-size:11px;color:#7c3aed;font-weight:600;margin:3px 0">⚡ ${esc(r.accion)}</div>`:''}
+        <div class="bi-meta">📅 ${fmtDT(r.fecha)} &nbsp;·&nbsp; ${dispIcon} ${esc(disp)}</div>
+        ${r.ip && r.ip!=='—'?`<div class="bi-meta" style="margin-top:2px">🌐 IP: <b>${esc(r.ip)}</b></div>`:''}
+      </div>`;
     el.appendChild(div);
   });
 }
 
-// COTIZADOR
-function statsCot(){
-  const hoy=new Date();hoy.setHours(0,0,0,0);
-  const iniSem=new Date(hoy);iniSem.setDate(hoy.getDate()-hoy.getDay());
-  document.getElementById('s-cot-tot').textContent=allCot.length;
-  document.getElementById('s-cot-hoy').textContent=allCot.filter(r=>{try{return new Date(r.fecha)>=hoy;}catch{return false;}}).length;
-  document.getElementById('s-cot-sem').textContent=allCot.filter(r=>{try{return new Date(r.fecha)>=iniSem;}catch{return false;}}).length;
-}
-function renderCot(){
-  const q=(document.getElementById('q-cot').value||'').toLowerCase();
-  let rows=[...allCot];
-  if(q) rows=rows.filter(r=>(r.nombre||'').toLowerCase().includes(q)||(r.asesor||'').toLowerCase().includes(q)||(r.proyecto||'').toLowerCase().includes(q));
-  const el=document.getElementById('list-cot');
-  if(!rows.length){el.innerHTML='<div class="empty-state"><span>📭</span>Sin cotizaciones registradas</div>';return;}
-  el.innerHTML='';
-  rows.forEach(r=>{
-    const div=document.createElement('div');div.className='bit-item';
-    div.innerHTML='<div class="bi-icon cot">🏠</div><div class="bi-body"><div class="bi-nombre">'+esc(r.nombre||'—')+'</div><span class="bi-badge cot">Cotizador</span><div class="bi-meta">👤 Asesor: <strong>'+esc(r.asesor||'—')+'</strong></div><div class="bi-meta">🏘 Proyecto: <strong>'+esc(r.proyecto||'—')+'</strong></div><div class="bi-meta">📅 '+fmtDT(r.fecha)+' &nbsp;·&nbsp; '+devLabel(r.ua||'')+'</div>'+(r.ua?'<div class="bi-ua" title="'+esc(r.ua)+'">'+esc(r.ua)+'</div>':'')+'</div>';
-    el.appendChild(div);
-  });
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function fmtDT(iso){
+  try{const d=new Date(iso);return d.toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});}
+  catch{return iso||'—';}
 }
 
-// HELPERS
-function devLabel(ua){return ua.includes('iPhone')||ua.includes('iPad')?'📱 iOS':ua.includes('Android')?'📱 Android':'💻 PC';}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function fmtDT(iso){try{const d=new Date(iso);return d.toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});}catch{return iso||'—';}}
-
-// CSV
+// ── CSV ───────────────────────────────────────────────────────────
 function exportCSV(){
-  if(activeTab==='op'){
-    const rows=allOp.map(r=>[r.nombre||'',r.formulario||'',r.fecha||'',devLabel(r.ua||'').replace(/[📱💻 iOS Android PC]/g,'').trim(),r.ua||''].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));
-    dlCSV(['"Nombre","Formulario","Fecha","Dispositivo","UserAgent"',...rows].join('\n'),'Bitacora_Operativos_LunaGI');
-  } else {
-    const rows=allCot.map(r=>[r.nombre||'',r.asesor||'',r.proyecto||'',r.fecha||'',devLabel(r.ua||'').replace(/[📱💻 iOS Android PC]/g,'').trim(),r.ua||''].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));
-    dlCSV(['"Inversionista","Asesor","Proyecto","Fecha","Dispositivo","UserAgent"',...rows].join('\n'),'Bitacora_Cotizador_LunaGI');
-  }
-}
-function dlCSV(csv,name){
+  const rows=all.map(r=>{
+    const ua=r.ua||'';
+    const disp=r.dispositivo||(ua.includes('iPhone')||ua.includes('iPad')?'iOS':ua.includes('Android')?'Android':'PC');
+    return [r.nombre||'',r.formulario||'',r.accion||'',r.fecha||'',disp,r.ip||'—',ua]
+      .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',');
+  });
+  const csv=['"Nombre","Formulario","Acción","Fecha","Dispositivo","IP","UserAgent"',...rows].join('\n');
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv'}));
-  a.download=name+'_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.download=`Bitacora_LunaGI_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
 }
 
-// CLEAR
-let clearTarget='op';
-function confirmClear(){
-  clearTarget=activeTab;
-  const tab=activeTab==='op'?'Operativos':'Cotizador';
-  document.getElementById('confirm-title').textContent='Limpiar '+tab;
-  document.getElementById('confirm-msg').textContent='Se eliminarán permanentemente todos los registros de "'+tab+'" de Firebase.';
-  document.getElementById('confirm-modal').classList.add('open');
-}
+// ── CLEAR ─────────────────────────────────────────────────────────
+function confirmClear(){document.getElementById('confirm-modal').classList.add('open');}
 function closeConfirm(){document.getElementById('confirm-modal').classList.remove('open');}
 async function doClear(){
   closeConfirm();
-  const listId=clearTarget==='op'?'list-op':'list-cot';
-  document.getElementById(listId).innerHTML='<div class="loader"><div class="spinner"></div> Eliminando…</div>';
+  document.getElementById('list').innerHTML='<div class="loader"><div class="spinner"></div> Eliminando…</div>';
   try{
-    const toDelete=clearTarget==='op'?allOp:allCot;
-    const ids=new Set(toDelete.map(r=>r.id));
     const snap=await db.collection('bitacora').get();
     const batch=db.batch();
-    snap.docs.forEach(d=>{if(ids.has(d.id))batch.delete(d.ref);});
+    snap.docs.forEach(d=>batch.delete(d.ref));
     await batch.commit();
-    if(clearTarget==='op'){allOp=[];statsOp();renderOp();document.getElementById('tc-op').textContent=0;}
-    else{allCot=[];statsCot();renderCot();document.getElementById('tc-cot').textContent=0;}
+    all=[];stats();render();
   }catch(e){alert('Error: '+e.message);}
 }
 </script>

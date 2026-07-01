@@ -1,0 +1,36 @@
+rules_version = '2';
+// Reglas de seguridad — Formulario Operativo Luna GI
+// Publícalas en: Consola Firebase → Firestore Database → Reglas
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Bitácora de uso: el personal escribe, el panel admin lee y limpia
+    match /bitacora/{doc} {
+      allow read, create, delete: if request.auth != null;
+      allow update: if false;
+    }
+
+    // Vehículos: crear salida y actualizar para confirmar entrega
+    match /vehiculos/{doc} {
+      allow read, create, update: if request.auth != null;
+      allow delete: if false;
+    }
+
+    // Registros de horas de maquinaria: solo crear y leer (inmutables)
+    match /maquinaria/{doc} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    // Comprobaciones de gastos: solo crear y leer (inmutables)
+    match /gastos/{doc} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    // Todo lo demás: bloqueado
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

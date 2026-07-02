@@ -1,6 +1,6 @@
-// ── Luna GI — Service Worker v6 ──────────────────────────────────
+// ── Luna GI — Service Worker v7 ──────────────────────────────────
 // Cambia el número de versión cada vez que actualices index.html
-const CACHE = 'luna-gi-v6';
+const CACHE = 'luna-gi-v7';
 
 const PRECACHE = [
   './',

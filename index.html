@@ -1929,9 +1929,11 @@ async function vLoadEnUso(){
   const list   = document.getElementById('v-enuso-list');
   loader.style.display='flex'; list.innerHTML='';
   try {
-    const snap = await _db.collection('vehiculos').where('estado','==','EN USO')
-                          .orderBy('tsCreatedServer','desc').get();
-    _vEnUsoData = snap.docs.map(d=>({id:d.id,...d.data()}));
+    // Sin orderBy en el servidor: filtro + orden exigiría un índice compuesto.
+    // Se ordena aquí en el cliente (son pocos vehículos).
+    const snap = await _db.collection('vehiculos').where('estado','==','EN USO').get();
+    _vEnUsoData = snap.docs.map(d=>({id:d.id,...d.data()}))
+                  .sort((a,b)=>(b.tsCreado||'').localeCompare(a.tsCreado||''));
     loader.style.display='none';
     vRenderEnUso(_vEnUsoData, list);
     vUpdateBadge(_vEnUsoData.length);

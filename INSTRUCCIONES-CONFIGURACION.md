@@ -29,6 +29,12 @@ La app ahora requiere inicio de sesión con correo y contraseña. Sin estos paso
 Con esto, solo usuarios autenticados pueden leer/escribir. Antes las
 colecciones quedaban abiertas a cualquiera que tuviera la URL.
 
+**Excepción**: la colección `bitacora` permite *crear* registros sin login,
+para que el Cotizador (<https://lunagrupoinmobiliario.github.io/Cotizador_LUNAGI/>)
+pueda registrar accesos/usos sin implementar login. Ojo: el Cotizador publicado
+hoy NO tiene código de Firebase, así que actualmente no registra nada; si
+quieres ese rastreo, hay que agregarle el snippet de bitácora.
+
 ## 4. (Opcional pero recomendado) Restringir la API key
 
 1. En <https://console.cloud.google.com/apis/credentials> (mismo proyecto).

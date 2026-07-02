@@ -402,7 +402,7 @@ input,select,textarea{font-size:16px!important;font-family:'Barlow',sans-serif;-
 #login-screen{display:none;position:fixed;inset:0;z-index:1200;background:linear-gradient(135deg,#0f2a5e 0%,var(--blue) 100%);align-items:center;justify-content:center;padding:24px}
 #login-screen.open{display:flex}
 .login-card{background:#fff;border-radius:24px;padding:34px 26px;width:min(360px,100%);box-shadow:0 8px 40px rgba(0,0,0,.3);text-align:center}
-.login-logo{width:64px;height:64px;background:var(--blue);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:30px}
+.login-logo{width:84px;height:84px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:30px;box-shadow:0 4px 16px rgba(19,66,137,.35)}
 .login-card h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--blue);margin-bottom:4px}
 .login-card>p{font-size:13px;color:var(--g600);margin-bottom:22px}
 .login-field{text-align:left;margin-bottom:12px}
@@ -439,7 +439,7 @@ input,select,textarea{font-size:16px!important;font-family:'Barlow',sans-serif;-
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-logo">🔐</div>
+    <div class="login-logo"><img id="login-logo-img" alt="Luna GI" style="width:72%;height:72%;object-fit:contain"></div>
     <h2>Luna GI — Formatos de Campo</h2>
     <p>Inicia sesión con tu cuenta de trabajo</p>
     <form id="login-form" onsubmit="return doLogin(event)">
@@ -913,6 +913,8 @@ const AUTH_ERRORS = {
   'auth/network-request-failed':'Sin conexión. Revisa tu internet.',
   'auth/operation-not-allowed':'El inicio de sesión por correo no está habilitado en Firebase. Avisa al administrador.'
 };
+// Logo del login: reutiliza el logo blanco ya embebido en el header
+try{document.getElementById('login-logo-img').src=document.querySelector('.header-icon').src;}catch(e){}
 if(_auth){
   _auth.onAuthStateChanged(u=>{
     _user = u;

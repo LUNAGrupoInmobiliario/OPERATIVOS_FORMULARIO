@@ -444,8 +444,8 @@ input,select,textarea{font-size:16px!important;font-family:'Barlow',sans-serif;-
     <p>Inicia sesión con tu cuenta de trabajo</p>
     <form id="login-form" onsubmit="return doLogin(event)">
       <div class="login-field">
-        <label>Correo</label>
-        <input type="email" id="login-email" autocomplete="username" placeholder="usuario@lunagi.com" required>
+        <label>Usuario</label>
+        <input type="text" id="login-email" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="ej. jorge" required>
       </div>
       <div class="login-field">
         <label>Contraseña</label>
@@ -891,6 +891,7 @@ try {
 
 // ── UTILIDADES COMPARTIDAS ───────────────────────────────────────
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function displayUser(email){return String(email||'').endsWith('@lunagi.app')?String(email).split('@')[0]:String(email||'');}
 let _toastTimer=null;
 function toast(msg, kind){
   const t=document.getElementById('toast');
@@ -933,6 +934,13 @@ if(_auth){
   document.getElementById('login-screen').classList.add('open');
   document.getElementById('login-error').textContent='No se pudo cargar Firebase. Revisa tu conexión y recarga.';
 }
+// Fase beta: el personal escribe solo su usuario; internamente se convierte
+// a <usuario>@LOGIN_DOMAIN (así se crean las cuentas en la consola Firebase)
+const LOGIN_DOMAIN='lunagi.app';
+function loginToEmail(v){
+  v=v.trim().toLowerCase();
+  return v.includes('@')?v:`${v}@${LOGIN_DOMAIN}`;
+}
 async function doLogin(ev){
   ev.preventDefault();
   const btn=document.getElementById('login-btn');
@@ -941,7 +949,7 @@ async function doLogin(ev){
   btn.disabled=true; btn.textContent='Entrando…';
   try{
     await _auth.signInWithEmailAndPassword(
-      document.getElementById('login-email').value.trim(),
+      loginToEmail(document.getElementById('login-email').value),
       document.getElementById('login-pass').value
     );
     document.getElementById('login-pass').value='';
@@ -1209,7 +1217,7 @@ function pdfFooter(doc){
   for(let i=1;i<=pages;i++){
     doc.setPage(i);
     doc.setFontSize(8);doc.setTextColor(130,140,155);
-    doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})}${_user?' · '+_user.email:''}`,12,291);
+    doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})}${_user?' · '+displayUser(_user.email):''}`,12,291);
     doc.text(`Página ${i} de ${pages}`,198,291,{align:'right'});
   }
 }

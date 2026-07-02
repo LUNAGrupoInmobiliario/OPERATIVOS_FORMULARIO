@@ -11,13 +11,21 @@ La app ahora requiere inicio de sesión con correo y contraseña. Sin estos paso
 3. Habilita **Correo electrónico/contraseña** (solo el primer switch; el de
    "vínculo de correo" no es necesario) y guarda.
 
-## 2. Crear las cuentas del personal
+## 2. Crear las cuentas del personal (fase beta: usuarios simples)
+
+El personal NO escribe un correo: escribe solo su **usuario** (ej. `jorge`) y
+la app le añade internamente el dominio `@lunagi.app`. Por eso, en Firebase
+las cuentas deben crearse con ese formato:
 
 1. En **Authentication → Users → Agregar usuario**.
-2. Crea un usuario por persona (correo + contraseña).
-   Sugerencia: usa correos reales para poder restablecer contraseñas después.
-3. Cualquier usuario creado aquí puede entrar tanto a los formularios
-   (`index.html`) como al panel administrativo (`bitacora.html`).
+2. Correo: `<usuario>@lunagi.app` (ej. `jorge@lunagi.app`, todo en minúsculas).
+   Contraseña: la que tú definas (mínimo 6 caracteres).
+3. Le entregas a cada persona su usuario (`jorge`) y su contraseña.
+4. Cualquier usuario creado así entra tanto a los formularios (`index.html`)
+   como al panel administrativo (`bitacora.html`).
+
+Nota: `@lunagi.app` no necesita existir como correo real; es solo el formato
+interno. Si alguien escribe un correo completo (con `@`), también funciona.
 
 ## 3. Publicar las reglas de seguridad de Firestore
 

@@ -132,8 +132,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g50);min-heigh
     <p>Inicia sesión con tu cuenta autorizada</p>
     <form onsubmit="return doLogin(event)">
       <div class="lf">
-        <label>Correo</label>
-        <input type="email" id="login-email" autocomplete="username" required>
+        <label>Usuario</label>
+        <input type="text" id="login-email" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="ej. admin" required>
       </div>
       <div class="lf">
         <label>Contraseña</label>
@@ -254,17 +254,23 @@ auth.onAuthStateChanged(u=>{
   document.getElementById('login-screen').style.display = u ? 'none' : 'flex';
   document.getElementById('main-screen').style.display  = u ? 'block' : 'none';
   if(u){
-    document.getElementById('top-user').textContent = u.email;
+    document.getElementById('top-user').textContent = displayUser(u.email);
     load();
   }
 });
+// Fase beta: usuario simple → <usuario>@lunagi.app (igual que index.html)
+const LOGIN_DOMAIN='lunagi.app';
+function loginToEmail(v){
+  v=v.trim().toLowerCase();
+  return v.includes('@')?v:`${v}@${LOGIN_DOMAIN}`;
+}
 async function doLogin(ev){
   ev.preventDefault();
   const btn=document.getElementById('login-btn'), err=document.getElementById('login-error');
   err.textContent=''; btn.disabled=true; btn.textContent='Entrando…';
   try{
     await auth.signInWithEmailAndPassword(
-      document.getElementById('login-email').value.trim(),
+      loginToEmail(document.getElementById('login-email').value),
       document.getElementById('login-pass').value);
     document.getElementById('login-pass').value='';
   }catch(e){ err.textContent=AUTH_ERRORS[e.code]||('Error: '+(e.message||e.code)); }
@@ -287,6 +293,7 @@ function showTab(t,btn){
 
 // ── HELPERS ───────────────────────────────────────────────────────
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function displayUser(email){return String(email||'').endsWith('@'+LOGIN_DOMAIN)?String(email).split('@')[0]:String(email||'');}
 function fmtDT(iso){
   try{const d=new Date(iso);if(isNaN(d))return iso||'—';return d.toLocaleDateString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});}
   catch{return iso||'—';}
@@ -358,7 +365,7 @@ function render(){
         <div class="bi-nombre">${esc(r.nombre||'—')}</div>
         <span class="bi-badge ${cls}">${esc(r.formulario||'—')}</span>
         ${r.accion?`<div style="font-size:11px;color:#7c3aed;font-weight:600;margin:3px 0">⚡ ${esc(r.accion)}</div>`:''}
-        <div class="bi-meta">📅 ${fmtDT(r.fecha)} &nbsp;·&nbsp; 📱 ${esc(disp)}${r.usuario&&r.usuario!=='—'?` &nbsp;·&nbsp; 👤 ${esc(r.usuario)}`:''}</div>
+        <div class="bi-meta">📅 ${fmtDT(r.fecha)} &nbsp;·&nbsp; 📱 ${esc(disp)}${r.usuario&&r.usuario!=='—'?` &nbsp;·&nbsp; 👤 ${esc(displayUser(r.usuario))}`:''}</div>
       </div>`;
     el.appendChild(div);
   });
@@ -426,7 +433,7 @@ async function loadMaq(){
           </table>
           <div><b>N:</b> ${esc(r.totN)} &nbsp; <b>M:</b> ${esc(r.totM)} &nbsp; <b>Total:</b> ${esc(r.totAll)} hrs</div>
           ${r.notas?`<div class="rec-notes">📝 ${esc(r.notas)}</div>`:''}
-          <div class="rec-user">Guardado por ${esc(r.usuario||'—')}</div>
+          <div class="rec-user">Guardado por ${esc(displayUser(r.usuario)||"—")}</div>
         </div>`;
       el.appendChild(div);
     });
@@ -481,7 +488,7 @@ async function loadGas(){
           <table><tr><th>Fecha</th><th>Tarjeta</th><th>Concepto</th><th>Destino</th><th>Total</th><th>Obs.</th></tr>${gastoRows(r.gastosTarjeta,true)}</table>`:''}
           <div><b>Total general:</b> ${money(r.totGeneral)}</div>
           ${r.notas?`<div class="rec-notes">📝 ${esc(r.notas)}</div>`:''}
-          <div class="rec-user">Guardado por ${esc(r.usuario||'—')}</div>
+          <div class="rec-user">Guardado por ${esc(displayUser(r.usuario)||"—")}</div>
         </div>`;
       el.appendChild(div);
     });
